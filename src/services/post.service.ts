@@ -11,50 +11,62 @@ class PostService {
     };
 
     static async getAll(): Promise<any> {
-        if (this.token && await AuthService.validateToken({token: this.token})) {
-            return fetch(this.SERVER_URL + 'posts', {
-                    method: 'GET',
-                    headers: {
-                        ...this.headers,
-                        Authorization: `bearer ${localStorage.getItem('blogToken')}`
-                    }
-            });
-        } else {
-            const token = await AuthService.generateToken();
-            localStorage.setItem('blogToken', token);
-            return await this.getAll();
+        try {
+            if (this.token && await AuthService.validateToken({token: this.token})) {
+                return fetch(this.SERVER_URL + 'posts', {
+                        method: 'GET',
+                        headers: {
+                            ...this.headers,
+                            Authorization: `bearer ${localStorage.getItem('blogToken')}`
+                        }
+                });
+            } else {
+                const token = await AuthService.generateToken();
+                localStorage.setItem('blogToken', token);
+                return await this.getAll();
+            }
+        } catch (error) {
+            Error.fire({ text: `Ocurrió un error al obtener los posts: ${error}` });
         }
     }
 
     static async getPublished(): Promise<any> {
-        if (this.token && await AuthService.validateToken({token: this.token})) {
-            return fetch(this.SERVER_URL + 'posts/published', {
+        try {
+            if (this.token && await AuthService.validateToken({token: this.token})) {
+                return fetch(this.SERVER_URL + 'posts/published', {
+                        method: 'GET',
+                        headers: {
+                            ...this.headers,
+                            Authorization: `bearer ${localStorage.getItem('blogToken')}`
+                        }
+                });
+            } else {
+                const token = await AuthService.generateToken();
+                localStorage.setItem('blogToken', token);
+                return await this.getPublished();
+            }
+        } catch (error) {
+            Error.fire({ text: `Ocurrió un error al obtener los posts: ${error}` });
+        }
+    }
+
+    static async getBySlug(slug: string): Promise<any> {
+        try {
+            if (this.token && await AuthService.validateToken({token:this.token})) {
+                return fetch(`${this.SERVER_URL}posts/${slug}`, {
                     method: 'GET',
                     headers: {
                         ...this.headers,
                         Authorization: `bearer ${localStorage.getItem('blogToken')}`
                     }
-            });
-        } else {
-            const token = await AuthService.generateToken();
-            localStorage.setItem('blogToken', token);
-            return await this.getPublished();
-        }
-    }
-
-    static async getBySlug(slug: string): Promise<any> {
-        if (this.token && await AuthService.validateToken({token:this.token})) {
-            return fetch(`${this.SERVER_URL}posts/${slug}`, {
-                method: 'GET',
-                headers: {
-                    ...this.headers,
-                    Authorization: `bearer ${localStorage.getItem('blogToken')}`
-                }
-            });
-        } else {
-            const token = await AuthService.generateToken();
-            localStorage.setItem('blogToken', token);
-            return await this.getBySlug(slug);
+                });
+            } else {
+                const token = await AuthService.generateToken();
+                localStorage.setItem('blogToken', token);
+                return await this.getBySlug(slug);
+            }
+        } catch (error) {
+            Error.fire({ text: `Ocurrió un error al obtener los posts: ${error}` });
         }
     }
 
