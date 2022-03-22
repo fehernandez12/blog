@@ -1,0 +1,24 @@
+// @import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+// Custom.scss
+// Option A: Include all of Bootstrap
+@import '../assets/scss/variables';
+
+// Include any default variable overrides here (though functions won't be available)
+
+@import "node_modules/bootstrap/scss/bootstrap";
+
+// Then add additional custom code here
+html, body {
+    height: 100vh;
+}
+
+#root {
+    position: absolute;
+    top: 0; right: 0; bottom: 0; left: 0;
+}
+
+$paleta-1: #112A40;
+$paleta-2: #1B6647;
+$paleta-3: #1E7F4C;
+$paleta-4: #31B25E;
+$paleta-5: #4BD943;
