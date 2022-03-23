@@ -49,7 +49,8 @@ class AuthService {
             const response = await api.json();
             return response.valid;
         } catch (error) {
-            Error.fire({ text: `Ocurrió un error al validar el token: ${error}` });
+            console.log(error);
+            //Error.fire({ text: `Ocurrió un error al validar el token: ${error}` });
         }
     }
 }
