@@ -13,21 +13,19 @@ function App() {
         <div className="container-fluid h-100">
           <Layout>
             <Routes>
-              <Route path='/blog'>
-                <Route path='/' element={<HomePage />} />
-                <Route path='/articles'>
-                  <Route path='/articles/:articleSlug' element={<Article />} />
-                </Route>
-                <Route path='/tags'>
-                  <Route path='/tags/:tagSlug'></Route>
-                </Route>
-                <Route path='/categories'>
-                  <Route path='/categories/:categorySlug'></Route>
-                </Route>
-                {/* <Route path='/archive' element={<Archive />} />
-                <Route path='/search' element={<Search />} /> */}
-                <Route path='*' element={<NotFound />} />
+              <Route path='/blog' element={<HomePage />} />
+              <Route path='/blog/articles'>
+                <Route path='/blog/articles/:articleSlug' element={<Article />} />
               </Route>
+              <Route path='/blog/tags'>
+                <Route path='/blog/tags/:tagSlug'></Route>
+              </Route>
+              <Route path='/blog/categories'>
+                <Route path='/blog/categories/:categorySlug'></Route>
+              </Route>
+              {/* <Route path='/blog/archive' element={<Archive />} />
+              <Route path='/blog/search' element={<Search />} /> */}
+              <Route path='*' element={<NotFound />} />
             </Routes>
           </Layout>
         </div>
