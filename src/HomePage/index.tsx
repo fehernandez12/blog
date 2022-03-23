@@ -20,7 +20,7 @@ function HomePage(props: any) {
             setPosts(result);
         }
         fetchPosts();
-    }, [])
+    }, []);
 
     return (
         <React.Fragment>
