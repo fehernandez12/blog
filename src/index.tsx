@@ -22,8 +22,7 @@ const getToken = async () => {
       localStorage.setItem('blogToken', result.token);
     }
   } catch (error) {
-    throw error;
-    //Error.fire({text: `Ocurrió un error al obtener el token inicial: ${error}`})
+    Error.fire({text: `Ocurrió un error al obtener el token inicial: ${error}`})
   }
 }
 

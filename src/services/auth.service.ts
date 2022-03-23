@@ -9,7 +9,6 @@ class AuthService {
         Authorization: `bearer ${localStorage.getItem('blogToken')}`
     };
     static async authenticate(request: AuthRequest) {
-        console.log(request);
         try {
             let headers = {
                 'Content-Type': 'application/json',
