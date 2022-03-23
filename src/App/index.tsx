@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, HashRouter } from 'react-router-dom';
 import './App.scss';
 import { Layout } from '../Layout';
 import { Article } from '../Article';
@@ -8,29 +8,29 @@ import { HomePage } from '../HomePage';
 
 function App() {
   return (
-    <BrowserRouter>
+    <HashRouter basename='/blog'>
       <React.Fragment>
         <div className="container-fluid h-100">
           <Layout>
             <Routes>
-              <Route path='/blog' element={<HomePage />} />
-              <Route path='/blog/articles'>
-                <Route path='/blog/articles/:articleSlug' element={<Article />} />
+              <Route path='/' element={<HomePage />} />
+              <Route path='/articles'>
+                <Route path='/articles/:articleSlug' element={<Article />} />
               </Route>
-              <Route path='/blog/tags'>
-                <Route path='/blog/tags/:tagSlug'></Route>
+              <Route path='/tags'>
+                <Route path='/tags/:tagSlug'></Route>
               </Route>
-              <Route path='/blog/categories'>
-                <Route path='/blog/categories/:categorySlug'></Route>
+              <Route path='/categories'>
+                <Route path='/categories/:categorySlug'></Route>
               </Route>
-              {/* <Route path='/blog/archive' element={<Archive />} />
-              <Route path='/blog/search' element={<Search />} /> */}
+              {/* <Route path='/archive' element={<Archive />} />
+              <Route path='/search' element={<Search />} /> */}
               <Route path='*' element={<NotFound />} />
             </Routes>
           </Layout>
         </div>
       </React.Fragment>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
