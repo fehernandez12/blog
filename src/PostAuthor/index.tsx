@@ -23,7 +23,7 @@ function PostAuthor(props: any) {
                     <p>
                         <strong>Tags: </strong> {props.tags.map(
                             (tag: any) => (
-                                <Link to={`/tags/${tag.slug}`}>
+                                <Link to={`/blog/tags/${tag.slug}`}>
                                     <span className="badge bg-info me-1 text-dark" key={tag.id}>{tag.title}</span>
                                 </Link>
                             )
@@ -32,7 +32,7 @@ function PostAuthor(props: any) {
                     <p>
                         <strong>Categorías: </strong> {props.categories.map(
                             (category: any) => (
-                                <Link to={`/categories/${category.slug}`}>
+                                <Link to={`/blog/categories/${category.slug}`}>
                                     <span className="badge bg-secondary me-1 bg-opacity-50 text-dark"  key={category.id}>{category.title}</span>
                                 </Link>
                             )

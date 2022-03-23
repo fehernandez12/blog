@@ -18,7 +18,7 @@ function Navbar(props:any) {
                                 <a href="#!" className="nav-link">Archivo</a>
                             </li>
                             <li className="nav-item">
-                                <Link to={'/'} className="nav-link">Inicio</Link>
+                                <Link to={'/blog'} className="nav-link">Inicio</Link>
                             </li>
                         </ul>
                     </div>
