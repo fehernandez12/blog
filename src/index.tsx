@@ -10,6 +10,7 @@ import { Error } from './utils/alertUtils';
 const getToken = async () => {
   localStorage.setItem('blogUsername', 'deffeater');
   localStorage.setItem('blogPassword', 'HxC090892');
+  console.log(localStorage.getItem('blogToken'))
   try {
     if (!localStorage.getItem('blogToken')) {
       const api = await AuthService.authenticate(
