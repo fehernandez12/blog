@@ -19,6 +19,7 @@ const getToken = async () => {
         }
       );
       const result = await api!.json();
+      console.log(result);
       localStorage.setItem('blogToken', result.token);
     }
   } catch (error) {
