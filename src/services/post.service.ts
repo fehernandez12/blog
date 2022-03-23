@@ -4,26 +4,36 @@ import { Error } from "../utils/alertUtils";
 class PostService {
 
     static SERVER_URL = SERVER_URL || 'http://localhost:8080/api/';
-    static token = localStorage.getItem('blogToken');
     private static headers = {
         'Content-Type': 'application/json',
         Authorization: `bearer ${localStorage.getItem('blogToken')}`
     };
 
+    static getToken() {
+        return localStorage.getItem('blogToken');
+    }
+
     static async getAll(): Promise<any> {
         try {
-            if (this.token && await AuthService.validateToken({token: this.token})) {
-                return fetch(this.SERVER_URL + 'posts', {
+            let token = this.getToken();
+            if (token && await AuthService.validateToken({token: token})) {
+                return await fetch(this.SERVER_URL + 'posts', {
                         method: 'GET',
                         headers: {
                             ...this.headers,
-                            Authorization: `bearer ${localStorage.getItem('blogToken')}`
+                            Authorization: `bearer ${this.getToken()}`
                         }
                 });
             } else {
                 const token = await AuthService.generateToken();
                 localStorage.setItem('blogToken', token);
-                return await this.getAll();
+                return await fetch(this.SERVER_URL + 'posts', {
+                    method: 'GET',
+                    headers: {
+                        ...this.headers,
+                        Authorization: `bearer ${this.getToken()}`
+                    }
+            });
             }
         } catch (error) {
             Error.fire({ text: `Ocurrió un error al obtener los posts: ${error}` });
@@ -32,18 +42,25 @@ class PostService {
 
     static async getPublished(): Promise<any> {
         try {
-            if (this.token && await AuthService.validateToken({token: this.token})) {
-                return fetch(this.SERVER_URL + 'posts/published', {
+            let token = this.getToken();
+            if (token && await AuthService.validateToken({token: token})) {
+                return await fetch(this.SERVER_URL + 'posts/published', {
                         method: 'GET',
                         headers: {
                             ...this.headers,
-                            Authorization: `bearer ${localStorage.getItem('blogToken')}`
+                            Authorization: `bearer ${this.getToken()}`
                         }
                 });
             } else {
                 const token = await AuthService.generateToken();
                 localStorage.setItem('blogToken', token);
-                return await this.getPublished();
+                return await fetch(this.SERVER_URL + 'posts/published', {
+                    method: 'GET',
+                    headers: {
+                        ...this.headers,
+                        Authorization: `bearer ${this.getToken()}`
+                    }
+            });
             }
         } catch (error) {
             Error.fire({ text: `Ocurrió un error al obtener los posts: ${error}` });
@@ -52,18 +69,25 @@ class PostService {
 
     static async getBySlug(slug: string): Promise<any> {
         try {
-            if (this.token && await AuthService.validateToken({token:this.token})) {
-                return fetch(`${this.SERVER_URL}posts/${slug}`, {
+            let token = this.getToken();
+            if (token && await AuthService.validateToken({token:token})) {
+                return await fetch(`${this.SERVER_URL}posts/${slug}`, {
                     method: 'GET',
                     headers: {
                         ...this.headers,
-                        Authorization: `bearer ${localStorage.getItem('blogToken')}`
+                        Authorization: `bearer ${this.getToken()}`
                     }
                 });
             } else {
                 const token = await AuthService.generateToken();
                 localStorage.setItem('blogToken', token);
-                return await this.getBySlug(slug);
+                return await fetch(`${this.SERVER_URL}posts/${slug}`, {
+                    method: 'GET',
+                    headers: {
+                        ...this.headers,
+                        Authorization: `bearer ${this.getToken()}`
+                    }
+                });
             }
         } catch (error) {
             Error.fire({ text: `Ocurrió un error al obtener los posts: ${error}` });
@@ -72,18 +96,25 @@ class PostService {
 
     static async getByTagSlug(slug:string):Promise<any> {
         try {
-            if (this.token && await AuthService.validateToken({token:this.token})) {
-                return fetch(`${this.SERVER_URL}posts/tag/${slug}`, {
+            let token = this.getToken();
+            if (token && await AuthService.validateToken({token:token})) {
+                return await fetch(`${this.SERVER_URL}posts/tag/${slug}`, {
                     method: 'GET',
                     headers: {
                         ...this.headers,
-                        Authorization: `bearer ${localStorage.getItem('blogToken')}`
+                        Authorization: `bearer ${this.getToken()}`
                     }
                 });
             } else {
                 const token = await AuthService.generateToken();
                 localStorage.setItem('blogToken', token);
-                return await this.getByTagSlug(slug);
+                return await fetch(`${this.SERVER_URL}posts/tag/${slug}`, {
+                    method: 'GET',
+                    headers: {
+                        ...this.headers,
+                        Authorization: `bearer ${this.getToken()}`
+                    }
+                });
             }
         } catch (error) {
             Error.fire({
@@ -94,18 +125,25 @@ class PostService {
 
     static async getByCategorySlug(slug:string) {
         try {
-            if (this.token && await AuthService.validateToken({token:this.token})) {
-                return fetch(`${this.SERVER_URL}posts/category/${slug}`, {
+            let token = this.getToken();
+            if (token && await AuthService.validateToken({token:token})) {
+                return await fetch(`${this.SERVER_URL}posts/category/${slug}`, {
                     method: 'GET',
                     headers: {
                         ...this.headers,
-                        Authorization: `bearer ${localStorage.getItem('blogToken')}`
+                        Authorization: `bearer ${this.getToken()}`
                     }
                 });
             } else {
                 const token = await AuthService.generateToken();
                 localStorage.setItem('blogToken', token);
-                return await this.getByTagSlug(slug);
+                return await fetch(`${this.SERVER_URL}posts/category/${slug}`, {
+                    method: 'GET',
+                    headers: {
+                        ...this.headers,
+                        Authorization: `bearer ${this.getToken()}`
+                    }
+                });
             }
         } catch (error) {
             Error.fire({

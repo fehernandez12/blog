@@ -6,8 +6,13 @@ class AuthService {
     static SERVER_URL = SERVER_URL || 'http://localhost:8080/api/';
     private static headers = {
         'Content-Type': 'application/json',
-        Authorization: `bearer ${localStorage.getItem('blogToken')}`
+        Authorization: `bearer ${this.getToken()}`
     };
+
+    static getToken() {
+        return localStorage.getItem('blogToken');
+    }
+
     static async authenticate(request: AuthRequest) {
         try {
             let headers = {
@@ -28,29 +33,32 @@ class AuthService {
     }
 
     static async generateToken(): Promise<any> {
-        const api = await this.authenticate(
+        return await this.authenticate(
             {
                 username: localStorage.getItem('blogUsername')!,
                 password: localStorage.getItem('blogPassword')!
             }
-        );
-        return await api!.json();
+        ).then(response => response?.json())
+            .then(result => result.token);
     }
 
     static async validateToken(request: ValidateRequest) {
         try {
-            const api = await fetch(this.SERVER_URL + 'auth/validate',
+            let headers = {
+                'Content-Type': 'application/json',
+                // La petición de autenticación no lleva headers
+                //'Authorization': `bearer ${localStorage.getItem('blogToken')}`
+            };
+            return await fetch(this.SERVER_URL + 'auth/validate',
                 {
                     method: 'POST',
-                    headers: this.headers,
+                    headers: headers,
                     body: JSON.stringify(request)
                 }
-            );
-            const response = await api.json();
-            return response.valid;
+            ).then(response => response.json())
+                .then(result => result.valid);
         } catch (error) {
-            console.log(error);
-            //Error.fire({ text: `Ocurrió un error al validar el token: ${error}` });
+            Error.fire({ text: `Ocurrió un error al validar el token: ${error}` });
         }
     }
 }
