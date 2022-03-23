@@ -8,7 +8,7 @@ import { HomePage } from '../HomePage';
 
 function App() {
   return (
-    <HashRouter basename='/blog'>
+    <HashRouter basename='/'>
       <React.Fragment>
         <div className="container-fluid h-100">
           <Layout>

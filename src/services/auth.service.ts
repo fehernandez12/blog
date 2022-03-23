@@ -9,6 +9,7 @@ class AuthService {
         Authorization: `bearer ${localStorage.getItem('blogToken')}`
     };
     static async authenticate(request: AuthRequest) {
+        console.log(request);
         try {
             let headers = {
                 'Content-Type': 'application/json',
@@ -18,7 +19,7 @@ class AuthService {
             return fetch(this.SERVER_URL + 'auth/authenticate',
                 {
                     method: 'POST',
-                    headers: this.headers,
+                    headers: headers,
                     body: JSON.stringify(request)
                 }
             );

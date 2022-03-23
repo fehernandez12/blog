@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { isTaggedTemplateExpression } from "typescript";
 
 function PostAuthor(props: any) {
     const image = require('../assets/images/image-fh.png');
@@ -23,7 +24,7 @@ function PostAuthor(props: any) {
                     <p>
                         <strong>Tags: </strong> {props.tags.map(
                             (tag: any) => (
-                                <Link to={`/blog/tags/${tag.slug}`}>
+                                <Link to={`/tags/${tag.slug}`} key={tag.slug}>
                                     <span className="badge bg-info me-1 text-dark" key={tag.id}>{tag.title}</span>
                                 </Link>
                             )
@@ -32,7 +33,7 @@ function PostAuthor(props: any) {
                     <p>
                         <strong>Categorías: </strong> {props.categories.map(
                             (category: any) => (
-                                <Link to={`/blog/categories/${category.slug}`}>
+                                <Link to={`/categories/${category.slug}`} key={category.slug}>
                                     <span className="badge bg-secondary me-1 bg-opacity-50 text-dark"  key={category.id}>{category.title}</span>
                                 </Link>
                             )

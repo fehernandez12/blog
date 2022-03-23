@@ -5,7 +5,6 @@ import { ScrollUtils } from "../utils/scrollUtils";
 
 function BlogTitle(props: any) {
   const getDate = () => {
-    console.log(props.date);
     moment.locale('es');
     return moment(props.date).format('[Publicado el] DD [de] MMMM [de] YYYY');
   }

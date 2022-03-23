@@ -11,16 +11,19 @@ const getToken = async () => {
   localStorage.setItem('blogUsername', 'deffeater');
   localStorage.setItem('blogPassword', 'HxC090892');
   try {
-    const api = await AuthService.authenticate(
-      {
-        username: 'deffeater',
-        password: 'HxC090892'
-      }
+    if (!localStorage.getItem('blogToken')) {
+      const api = await AuthService.authenticate(
+        {
+          username: 'deffeater',
+          password: 'HxC090892'
+        }
       );
-    const result = await api!.json();
-    localStorage.setItem('blogToken', result.token);
+      const result = await api!.json();
+      localStorage.setItem('blogToken', result.token);
+    }
   } catch (error) {
-    Error.fire({text: `Ocurrió un error al obtener el token inicial: ${error}`})
+    throw error;
+    //Error.fire({text: `Ocurrió un error al obtener el token inicial: ${error}`})
   }
 }
 
@@ -28,7 +31,7 @@ getToken();
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+      <App />
   </React.StrictMode>,
   document.getElementById('root')
 );
