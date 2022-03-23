@@ -1,7 +1,8 @@
 import { AuthRequest, ValidateRequest } from "../types/blog.type";
+import { SERVER_URL } from "./global";
 
 class AuthService {
-    static SERVER_URL = 'http://localhost:8080/api/';
+    static SERVER_URL = SERVER_URL || 'http://localhost:8080/api/';
     private static headers = {
         'Content-Type': 'application/json',
         Authorization: `bearer ${localStorage.getItem('blogToken')}`
