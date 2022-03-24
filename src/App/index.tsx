@@ -5,6 +5,7 @@ import { Layout } from '../Layout';
 import { Article } from '../Article';
 import { NotFound } from '../NotFound';
 import { HomePage } from '../HomePage';
+import { TagList } from '../TagList';
 
 function App() {
   return (
@@ -18,7 +19,7 @@ function App() {
                 <Route path='/articles/:articleSlug' element={<Article />} />
               </Route>
               <Route path='/tags'>
-                <Route path='/tags/:tagSlug'></Route>
+                <Route path='/tags/:tagSlug' element={<TagList />}></Route>
               </Route>
               <Route path='/categories'>
                 <Route path='/categories/:categorySlug'></Route>
