@@ -7,6 +7,7 @@ import { duration } from "moment";
 import { ScrollUtils } from "../utils/scrollUtils";
 
 function HomePage(props: any) {
+    console.log(document.scrollingElement?.scrollTop);
     const [posts, setPosts] = useState<Post[]>([]);
 
     const scrollDown = (num: number) => {

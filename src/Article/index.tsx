@@ -12,6 +12,8 @@ import { Post } from "../types/blog.type";
 function Article(props: any) {
     let params = useParams();
     const [post, setPost] = useState<Post>({} as Post);
+
+    console.log(document.scrollingElement?.scrollTop);
     useEffect(
         () => { 
             const fetchPost = async (slug:string) => {
@@ -20,6 +22,7 @@ function Article(props: any) {
                 setPost(result);
             }
             fetchPost(params.articleSlug!);
+            window.scrollTo(0, 0);
         }
         , []
     );

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { PageTitle } from "../PageTitle";
 import { PostCard } from "../PostCard";
 import { PostService } from "../services/post.service";
 import { TagService } from "../services/tag.service";
 import { Post, Tag } from "../types/blog.type";
-import { ScrollUtils } from "../utils/scrollUtils";
 
 function TagList(props: any) {
     let params = useParams();
@@ -22,33 +22,12 @@ function TagList(props: any) {
             setTag(result);
         }
         fetchTag(params.tagSlug!);
-        console.log(tag);
         fetchPosts(params.tagSlug!);
     }, []);
-
-    const scrollDown = (num: number) => {
-        ScrollUtils.scrollTo(document.body, num, 1250);
-    }
-
-    const capitalize = (string: string) => {
-        let str = string.replace('-', ' ');
-        return str.charAt(0).toUpperCase() + str.slice(1);
-    };
     
     return (
         <React.Fragment>
-            <div className="row h-100 d-flex align-items-center text-center">
-                <h1>
-                    <span className="display-1">
-                        {tag.slug}
-                    </span>
-                    <br />
-                    <button className="btn btn-primary" onClick={() => scrollDown(1000)}>
-                        <i className="bi-caret-down"></i>
-                    </button>
-                    
-                </h1>
-            </div>
+            <PageTitle kind={'Tag'} title={tag.title} />
             <div className="row">
                 {posts.length > 0 ? posts.map(
                     (post) => 

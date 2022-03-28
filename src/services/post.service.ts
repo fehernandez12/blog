@@ -123,7 +123,7 @@ class PostService {
         }
     }
 
-    static async getByCategorySlug(slug:string) {
+    static async getByCategorySlug(slug:string): Promise<any> {
         try {
             let token = this.getToken();
             if (token && await AuthService.validateToken({token:token})) {
